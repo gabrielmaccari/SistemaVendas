@@ -12,9 +12,8 @@ public class VendasController : ControllerBase
         _context = context;
     }
 
-    // GET: api/produtos
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Venda>>> GetProdutos()
+    public async Task<ActionResult<IEnumerable<Venda>>> GetPedidoVendas()
     {
         return await _context.Vendas.ToListAsync();
     }
@@ -35,7 +34,7 @@ public class VendasController : ControllerBase
 
     // POST: api/produtos
     [HttpPost]
-    public async Task<ActionResult<Venda>> PostProduto(Venda venda)
+    public async Task<ActionResult<Venda>> PostVenda(Venda venda)
     {
         _context.Vendas.Add(venda);
         await _context.SaveChangesAsync();

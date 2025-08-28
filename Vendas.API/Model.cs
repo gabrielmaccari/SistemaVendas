@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 public class VendasContext : DbContext
 {
@@ -26,6 +27,7 @@ public class VendasContext : DbContext
 
 public class Venda
 {
+    [JsonIgnore]
     public int Id { get; set; }
     public int ClienteId { get; set; }
     public decimal Preco { get; set; }
@@ -42,7 +44,7 @@ public class ItemPedido
     public required string NomeProduto { get; set; }
     public int Quantidade { get; set; }
     public decimal Subtotal { get; set; }
-
-    public Venda Venda { get; set; } //Gera a chave estrangeira automaticamente
+    [JsonIgnore]
+    public virtual Venda Venda { get; set; } //Gera a chave estrangeira automaticamente
 
 }

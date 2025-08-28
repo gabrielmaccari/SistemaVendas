@@ -3,27 +3,27 @@ using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/[controller]")]
-public class VendasController : ControllerBase
+public class VendasPedidoController : ControllerBase
 {
     private readonly VendasContext _context;
 
-    public VendasController(VendasContext context)
+    public VendasPedidoController(VendasContext context)
     {
         _context = context;
     }
 
     // GET: api/produtos
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Venda>>> GetProdutos()
+    public async Task<ActionResult<IEnumerable<ItemPedido>>> GetItemPedido()
     {
-        return await _context.Vendas.ToListAsync();
+        return await _context.ItensPedidos.ToListAsync();
     }
 
     // GET: api/produtos/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Venda>> GetVenda(int id)
+    public async Task<ActionResult<ItemPedido>> GetItemPedido(int id)
     {
-        var produto = await _context.Vendas.FindAsync(id);
+        var produto = await _context.ItensPedidos.FindAsync(id);
 
         if (produto == null)
         {
@@ -35,24 +35,24 @@ public class VendasController : ControllerBase
 
     // POST: api/produtos
     [HttpPost]
-    public async Task<ActionResult<Venda>> PostProduto(Venda venda)
+    public async Task<ActionResult<ItemPedido>> PostItemPedido(ItemPedido item)
     {
-        _context.Vendas.Add(venda);
+        _context.ItensPedidos.Add(item);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetVenda), new { id = venda.Id }, venda);
+        return CreatedAtAction(nameof(GetItemPedido), new { id = item.Id }, item);
     }
 
     // PUT: api/produtos/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutVenda(int id, Venda venda)
+    public async Task<IActionResult> PutItemPedido(int id, ItemPedido item)
     {
-        if (id != venda.Id)
+        if (id != item.Id)
         {
             return BadRequest();
         }
 
-        _context.Entry(venda).State = EntityState.Modified;
+        _context.Entry(item).State = EntityState.Modified;
 
         try
         {
@@ -60,7 +60,7 @@ public class VendasController : ControllerBase
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!_context.Vendas.Any(e => e.Id == id))
+            if (!_context.ItensPedidos.Any(e => e.Id == id))
                 return NotFound();
             else
                 throw;
@@ -71,15 +71,15 @@ public class VendasController : ControllerBase
 
     // DELETE: api/produtos/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteVenda(int id)
+    public async Task<IActionResult> DeleteItemPedido(int id)
     {
-        var venda = await _context.Vendas.FindAsync(id);
+        var venda = await _context.ItensPedidos.FindAsync(id);
         if (venda == null)
         {
             return NotFound();
         }
 
-        _context.Vendas.Remove(venda);
+        _context.ItensPedidos.Remove(venda);
         await _context.SaveChangesAsync();
 
         return NoContent();
