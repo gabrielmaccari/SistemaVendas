@@ -37,14 +37,14 @@ public class Venda
 }
 public class ItemPedido
 {
+    [JsonIgnore]
     public int Id { get; set; }
-    public int PedidoId { get; set; }
     public int ProdutoId { get; set; }
     public decimal PrecoUnitario { get; set; }
-    public required string NomeProduto { get; set; }
+    public string NomeProduto { get; set; }
     public int Quantidade { get; set; }
     public decimal Subtotal { get; set; }
     [JsonIgnore]
-    public virtual Venda Venda { get; set; } //Gera a chave estrangeira automaticamente
+    public virtual Venda? Venda { get; set; } //Gera a chave estrangeira automaticamente
 
 }

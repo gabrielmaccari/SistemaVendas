@@ -25,9 +25,6 @@ namespace Vendas.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("TEXT");
 

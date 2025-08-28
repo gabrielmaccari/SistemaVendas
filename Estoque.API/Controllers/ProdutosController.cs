@@ -84,4 +84,16 @@ public class ProdutosController : ControllerBase
 
         return NoContent();
     }
+    [HttpPut("{id}/estoque")]
+    public async Task<IActionResult> AtualizarEstoque(int id, [FromBody] int quantidade)
+    {
+        var produto = await _context.Produtos.FindAsync(id);
+        if (produto == null) return NotFound();
+
+        produto.QuantidadeEstoque -= quantidade;
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
 }

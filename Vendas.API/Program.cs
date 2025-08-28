@@ -11,6 +11,12 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "API produtos", Version = "v1" });
 });
 
+builder.Services.AddHttpClient<EstoqueService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5219/");
+});
+
+
 // EF Core
 builder.Services.AddDbContext<VendasContext>();
 

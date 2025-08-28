@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 public class BloggingContext : DbContext
 {
@@ -25,9 +26,10 @@ public class BloggingContext : DbContext
 
 public class Produto
 {
+    [JsonIgnore]
     public int ProdutoId { get; set; }
-    public required string Nome { get; set; }
-    public required string Descricao { get; set; }
+    public string Nome { get; set; }
+    public string Descricao { get; set; }
     public decimal Preco { get; set; }
     public int QuantidadeEstoque { get; set; }
 }

@@ -1,30 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/home/gabriel/Documents/Dio/avanade/Estoque.API/Estoque.API.csproj": {}
+    "C:\\Users\\gabri\\OneDrive\\Documentos\\aulas\\SistemaVendas\\Estoque.API\\Estoque.API.csproj": {}
   },
   "projects": {
-    "/home/gabriel/Documents/Dio/avanade/Estoque.API/Estoque.API.csproj": {
+    "C:\\Users\\gabri\\OneDrive\\Documentos\\aulas\\SistemaVendas\\Estoque.API\\Estoque.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/gabriel/Documents/Dio/avanade/Estoque.API/Estoque.API.csproj",
+        "projectUniqueName": "C:\\Users\\gabri\\OneDrive\\Documentos\\aulas\\SistemaVendas\\Estoque.API\\Estoque.API.csproj",
         "projectName": "Estoque.API",
-        "projectPath": "/home/gabriel/Documents/Dio/avanade/Estoque.API/Estoque.API.csproj",
-        "packagesPath": "/home/gabriel/.nuget/packages/",
-        "outputPath": "/home/gabriel/Documents/Dio/avanade/Estoque.API/obj/",
+        "projectPath": "C:\\Users\\gabri\\OneDrive\\Documentos\\aulas\\SistemaVendas\\Estoque.API\\Estoque.API.csproj",
+        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gabri\\OneDrive\\Documentos\\aulas\\SistemaVendas\\Estoque.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/gabriel/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net9.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net9.0": {
+            "targetAlias": "net9.0",
             "projectReferences": {}
           }
         },
@@ -32,11 +32,17 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -76,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.119/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

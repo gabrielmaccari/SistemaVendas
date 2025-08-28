@@ -32,15 +32,25 @@ public class VendasController : ControllerBase
         return produto;
     }
 
-    // POST: api/produtos
-    [HttpPost]
-    public async Task<ActionResult<Venda>> PostVenda(Venda venda)
-    {
-        _context.Vendas.Add(venda);
-        await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetVenda), new { id = venda.Id }, venda);
+    [HttpPost]
+public async Task<ActionResult<Venda>> PostVenda(Venda venda, [FromServices] EstoqueService estoqueService)
+{
+    _context.Vendas.Add(venda);
+    await _context.SaveChangesAsync();
+
+    foreach (var item in venda.ItensPedidos)
+    {
+        var sucesso = await estoqueService.AtualizarEstoque(item.ProdutoId, item.Quantidade);
+        if (!sucesso)
+        {
+            return BadRequest($"Não foi possível atualizar o estoque do produto {item.ProdutoId}");
+        }
     }
+
+    return CreatedAtAction(nameof(GetVenda), new { id = venda.Id }, venda);
+}
+
 
     // PUT: api/produtos/5
     [HttpPut("{id}")]
