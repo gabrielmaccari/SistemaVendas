@@ -1,7 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<VendasContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao"))
+);
 
 // Aqui sim temos o "services"
 builder.Services.AddControllers();
@@ -17,8 +22,7 @@ builder.Services.AddHttpClient<EstoqueService>(client =>
 });
 
 
-// EF Core
-builder.Services.AddDbContext<VendasContext>();
+
 
 var app = builder.Build();
 

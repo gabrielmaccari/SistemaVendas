@@ -20,7 +20,7 @@ public class EstoqueService
         _httpClient = httpClient;
     }
 
-    public async Task<bool> AtualizarEstoque(int produtoId, int quantidade)
+    public async Task<bool> AtualizarEstoquePositivo(int produtoId, int quantidade)
     {
 
         var content = new StringContent(
@@ -28,7 +28,18 @@ public class EstoqueService
         Encoding.UTF8,
         "application/json"
 );
-        var response = await _httpClient.PutAsync($"api/produtos/{produtoId}/estoque", content);
+        var response = await _httpClient.PutAsync($"api/produtos/{produtoId}/estoquepositivo", content);
+        return response.IsSuccessStatusCode;
+    }
+    public async Task<bool> AtualizarEstoqueNegativo(int produtoId, int quantidade)
+    {
+
+        var content = new StringContent(
+        JsonSerializer.Serialize(quantidade),
+        Encoding.UTF8,
+        "application/json"
+);
+        var response = await _httpClient.PutAsync($"api/produtos/{produtoId}/estoquenegativo", content);
         return response.IsSuccessStatusCode;
     }
 }

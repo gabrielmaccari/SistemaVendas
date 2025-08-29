@@ -11,7 +11,7 @@ public class VendasPedidoController : ControllerBase
     {
         _context = context;
     }
-
+    /*
     // GET: api/produtos
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ItemPedido>>> GetItemPedido()
@@ -42,7 +42,7 @@ public class VendasPedidoController : ControllerBase
 
         return CreatedAtAction(nameof(GetItemPedido), new { id = item.Id }, item);
     }
-
+    */
     // PUT: api/produtos/5
     [HttpPut("{id}")]
     public async Task<IActionResult> PutItemPedido(int id, ItemPedido item)
@@ -70,15 +70,15 @@ public class VendasPedidoController : ControllerBase
     }
 
     // DELETE: api/produtos/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteItemPedido(int id)
+    [HttpDelete("{VendaId}")]
+    public async Task<ActionResult<Venda>> DeleteItemPedido(int VendaId, [FromServices] EstoqueService estoqueService)
     {
-        var venda = await _context.ItensPedidos.FindAsync(id);
+        var venda = await _context.ItensPedidos.FindAsync(VendaId);
         if (venda == null)
         {
             return NotFound();
         }
-
+        await estoqueService.AtualizarEstoqueNegativo(venda.ProdutoId, venda.Quantidade);
         _context.ItensPedidos.Remove(venda);
         await _context.SaveChangesAsync();
 

@@ -2,26 +2,24 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class VendasContext : DbContext
 {
+    public VendasContext(DbContextOptions<VendasContext> options) : base(options)
+    {
+    }
     public DbSet<Venda> Vendas { get; set; }
     public DbSet<ItemPedido> ItensPedidos { get; set; }
-
-
-    public string DbPath { get; }
-
-    public VendasContext()
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "blogging.db");
+        // Configura relacionamento 1:N
+        modelBuilder.Entity<ItemPedido>()
+            .HasOne(ip => ip.Venda)           // Cada ItemPedido tem uma Venda
+            .WithMany(v => v.ItensPedidos)    // Cada Venda tem muitos ItensPedidos
+            .HasForeignKey(ip => ip.VendaId); // FK em ItemPedido
     }
 
-    // The following configures EF to create a Sqlite database file in the
-    // special "local" folder for your platform.
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
 }
 
 
@@ -44,7 +42,8 @@ public class ItemPedido
     public string NomeProduto { get; set; }
     public int Quantidade { get; set; }
     public decimal Subtotal { get; set; }
+    public int VendaId { get; set; }
     [JsonIgnore]
-    public virtual Venda? Venda { get; set; } //Gera a chave estrangeira automaticamente
+    public Venda? Venda { get; set; }
 
 }

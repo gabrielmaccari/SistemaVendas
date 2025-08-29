@@ -22,14 +22,15 @@ public class VendasController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Venda>> GetVenda(int id)
     {
-        var produto = await _context.Vendas.FindAsync(id);
+        var venda = await _context.Vendas.FindAsync(id);
+        List<ItemPedido> itens = await _context.ItensPedidos.Where(i => i.VendaId == id).ToListAsync();
 
-        if (produto == null)
+        if (venda == null)
         {
             return NotFound();
         }
-
-        return produto;
+        venda.ItensPedidos = itens;
+        return venda;
     }
 
 
@@ -41,7 +42,7 @@ public async Task<ActionResult<Venda>> PostVenda(Venda venda, [FromServices] Est
 
     foreach (var item in venda.ItensPedidos)
     {
-        var sucesso = await estoqueService.AtualizarEstoque(item.ProdutoId, item.Quantidade);
+        var sucesso = await estoqueService.AtualizarEstoquePositivo(item.ProdutoId, item.Quantidade);
         if (!sucesso)
         {
             return BadRequest($"Não foi possível atualizar o estoque do produto {item.ProdutoId}");
@@ -52,7 +53,7 @@ public async Task<ActionResult<Venda>> PostVenda(Venda venda, [FromServices] Est
 }
 
 
-    // PUT: api/produtos/5
+    /*
     [HttpPut("{id}")]
     public async Task<IActionResult> PutVenda(int id, Venda venda)
     {
@@ -77,6 +78,7 @@ public async Task<ActionResult<Venda>> PostVenda(Venda venda, [FromServices] Est
 
         return NoContent();
     }
+    
 
     // DELETE: api/produtos/5
     [HttpDelete("{id}")]
@@ -92,5 +94,7 @@ public async Task<ActionResult<Venda>> PostVenda(Venda venda, [FromServices] Est
         await _context.SaveChangesAsync();
 
         return NoContent();
+        
     }
+    */
 }

@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<EstoqueContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao"))
+);
 
 // Aqui sim temos o "services"
 builder.Services.AddControllers();
@@ -12,7 +15,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 // EF Core
-builder.Services.AddDbContext<BloggingContext>();
+
 
 var app = builder.Build();
 

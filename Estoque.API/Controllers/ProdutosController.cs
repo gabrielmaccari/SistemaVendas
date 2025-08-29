@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/[controller]")]
 public class ProdutosController : ControllerBase
 {
-    private readonly BloggingContext _context;
+    private readonly EstoqueContext _context;
 
-    public ProdutosController(BloggingContext context)
+    public ProdutosController(EstoqueContext context)
     {
         _context = context;
     }
@@ -84,13 +84,24 @@ public class ProdutosController : ControllerBase
 
         return NoContent();
     }
-    [HttpPut("{id}/estoque")]
-    public async Task<IActionResult> AtualizarEstoque(int id, [FromBody] int quantidade)
+    [HttpPut("{id}/estoquepositivo")]
+    public async Task<IActionResult> AtualizarEstoquePositivo(int id, [FromBody] int quantidade)
     {
         var produto = await _context.Produtos.FindAsync(id);
         if (produto == null) return NotFound();
 
         produto.QuantidadeEstoque -= quantidade;
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+    [HttpPut("{id}/estoquenegativo")]
+    public async Task<IActionResult> AtualizarEstoqueNegativo(int id, [FromBody] int quantidade)
+    {
+        var produto = await _context.Produtos.FindAsync(id);
+        if (produto == null) return NotFound();
+
+        produto.QuantidadeEstoque += quantidade;
         await _context.SaveChangesAsync();
 
         return NoContent();
